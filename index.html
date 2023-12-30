@@ -1,0 +1,34 @@
+<html>
+<head>
+    <style>
+        body {overflow-y: scroll;}
+        ::-webkit-scrollbar {width: 10px;}
+        ::-webkit-scrollbar-track {background: #f1f1f1;}
+        ::-webkit-scrollbar-thumb {background: #888;}
+        ::-webkit-scrollbar-thumb:hover {background: #555;}
+    </style>
+</head>
+<body>
+    <div id="bodyv">
+    </div>
+</body>
+<script>
+    const randomColor = () => { return Math.floor(Math.random()*16777215).toString(16); }
+    const HandleScroll = () => {
+        console.log("Window scroll Y: "+window.scrollY)
+        console.log("Window inner height: "+window.innerHeight)
+        console.log("Sum scroll+height: "+(window.scrollY+window.innerHeight))
+        console.log("Document offset: "+document.body.offsetHeight)
+        if ((window.scrollY+window.innerHeight >= document.body.offsetHeight)) {
+            document.getElementById("bodyv").innerHTML = document.getElementById("bodyv").innerHTML + `<span style="color:#${randomColor()}">Infinite Scroll<br></span>`
+        
+        }
+    }
+    console.log("Window inner height: "+window.innerHeight)
+    console.log("Data height: "+document.getElementById("bodyv").offsetHeight)
+    while (document.getElementById("bodyv").offsetHeight < window.innerHeight) {
+        document.getElementById("bodyv").innerHTML = document.getElementById("bodyv").innerHTML + 'Static Content<br>'
+    }
+    window.onscroll = function(){HandleScroll()}
+</script>
+</html>
